@@ -1,0 +1,9 @@
+.fa-heart {
+    color :palevioletred;
+    cursor : pointer;
+}
+#symbol{
+    margin-top: -40px;
+    float: right;
+    background-color: cadetblue;
+}

@@ -1,0 +1,46 @@
+<style>
+  .b{
+    font-weight: 700;
+    color: blue;
+    font-size: 80px;
+    font-family: serif;
+    font-style:italic;
+  }
+  .c{
+  color: blue;
+  
+  }
+  .g{
+    font-size: 18px;
+  }
+  .d{
+    font-family:serif;
+    color:blue;
+  }
+  </style>
+  
+  <div>
+  <h2 align="center"  >     Welcome to ShopForHome</h2><hr>
+  
+  <label style="font-size: 30px;">Search for products:</label>&nbsp;
+  <input type = "text" align="center" name="search" [(ngModel)]="searchText" placeholder ="find your products!" class="display-4 mb-5" style="padding:3px; border-radius: 30px; font-size: 25px;"/>
+  </div>
+  <div class="row card-deck text-center">
+   
+  
+    <div *ngFor="let productInfo of page?.content | filter:searchText" class="col-md-4 " align="center">
+      <div class="card" style="width: 26rem; border: 2px solid black;">
+        <img src="{{productInfo.productIcon}}" class="card-img-top" alt="{{productInfo.productName}}">
+        <div class="card-body">
+          <h5 class="card-title">{{productInfo.productName}}</h5><hr>
+          <p class="card-text g"><strong class="d">Price: </strong>{{productInfo.productPrice | currency:"INR":"symbol"}}</p>
+          
+            <a routerLink="/product/{{productInfo.productId}}" *ngIf="productInfo.productStatus == 0; else offBlock"
+             class="btn btn-success btn-lg " id="symbol"
+          ><i class='fas fa-shopping-cart' ></i>  </a>
+          <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pagination  [currentPage]="page" ></app-pagination>

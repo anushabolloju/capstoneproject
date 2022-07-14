@@ -1,0 +1,103 @@
+<style>
+    .h {
+        font-size: 30px;
+        color: rgb(0, 0, 0)
+    }
+
+    .h1 {
+        font-size: 20px;
+        color: rgb(12, 10, 8);
+    }
+</style>
+
+
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f6fd; font-size: 25px;">
+    <a class="navbar-brand h" [routerLink]="root">
+        <i style="font-size: 40px;" ><img src="http://cdn.onlinewebfonts.com/svg/download_186603.png"></i>
+   ShopForHome
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse h1" id="navbarNav">
+
+        <div class="navbar-nav " *ngIf="!currentUser || currentUser.role == Role.Customer">
+            <a class="nav-item nav-link "  [routerLink]="root">
+                Home
+            </a>
+            <a class="nav-item nav-link "  [routerLink]="root">
+                Contact Us
+            </a>
+
+            <div class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Categories</a>
+
+
+                <div class="dropdown-menu">
+                    <a class="nav-item nav-link  " routerLink="/category/0">
+                        Office
+                    </a>
+                    <a class="nav-item nav-link " routerLink="/category/1">
+                        Living
+                    </a>
+                    <a class="nav-item nav-link " routerLink="/category/2">
+                        Bedroom
+                    </a>
+                    <a class="nav-item nav-link " routerLink="/category/3">
+                        Kitchen
+                    </a>
+                </div>
+            </div>
+        
+
+
+        </div>
+
+
+
+        <div class="navbar-nav ml-auto">
+            <a *ngIf="!currentUser || currentUser.role == Role.Customer" class="nav-item nav-link h1"
+                routerLink="/cart">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a> &nbsp;
+
+            <div class="navbar-nav" *ngIf="currentUser && currentUser.role == Role.Manager">
+
+                <a class="nav-item nav-link h1" routerLink="/discount">Discount</a>
+                <a class="nav-item nav-link h1" (click)=getUsers() routerLink="/admin/user">Users</a>
+                <a class="nav-item nav-link h1" routerLink="/seller/product">Stocks</a>
+            </div>
+
+            <div class="navbar-nav" *ngIf="currentUser && currentUser.role == Role.Customer">
+                <a class="nav-item nav-link h1" routerLink="/wishlist">Wishlist</a> &nbsp;
+            </div>
+
+            <ng-container *ngIf="currentUser; else noUser">
+
+                
+                <a class="nav-item nav-link " routerLink="/order" style="color: black;">
+                    <i class="fas fa-list-ul" style="margin-top: 19px;"></i>
+                    Orders
+                </a>
+                <a class="nav-item nav-link " style="margin-top: 19px"  routerLink="/profile">
+                    {{name}}
+                </a>
+                <a class="nav-item nav-link h1" (click)="logout()" routerLink="/login" [queryParams]="{logout: true}">
+                    logOut
+                </a>
+            </ng-container>
+            <ng-template #noUser>
+                <a class="nav-item nav-link h1" routerLink="/login">
+                    <i class='fas fa-user-alt' style='font-size:20px'> Login</i>
+                </a> &nbsp;
+                <a class="nav-item nav-link h1" routerLink="/register">
+                    <i class='fas fa-user-alt' style='font-size:18px'>  Register</i>
+                </a>
+            </ng-template>
+
+        </div>
+    </div>
+</nav>
